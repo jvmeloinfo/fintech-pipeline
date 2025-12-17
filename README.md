@@ -7,3 +7,4 @@ S3 (Raw) → AWS Glue (PySpark) → S3 (Parquet) → Glue Catalog → Athena / B
 
 CI check via PR
 # trigger
+trigger ci
