@@ -1,6 +1,7 @@
-import argparse
+import sys
 from pyspark.sql import SparkSession
 from pyspark.sql import types as T
+from awsglue.utils import getResolvedOptions
 
 
 def build_spark(app_name="fintech-raw-ingestion"):
@@ -26,11 +27,10 @@ def write_csv(df, path):
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--countries_src", required=True)
-    parser.add_argument("--transactions_src", required=True)
-    parser.add_argument("--raw_base_path", required=True)
-    args = parser.parse_args()
+    args = getResolvedOptions(
+        sys.argv,
+        ["countries_src", "transactions_src", "raw_base_path"]
+    )
 
     spark = build_spark()
 
@@ -49,11 +49,11 @@ def main():
         T.StructField("payment_due_date", T.StringType(), True),
     ])
 
-    countries_df = read_csv(spark, args.countries_src, countries_schema)
-    transactions_df = read_csv(spark, args.transactions_src, transactions_schema)
+    countries_df = read_csv(spark, args["countries_src"], countries_schema)
+    transactions_df = read_csv(spark, args["transactions_src"], transactions_schema)
 
-    write_csv(countries_df, f"{args.raw_base_path}/countries/")
-    write_csv(transactions_df, f"{args.raw_base_path}/transactions/")
+    write_csv(countries_df, f"{args['raw_base_path']}/countries/")
+    write_csv(transactions_df, f"{args['raw_base_path']}/transactions/")
 
     spark.stop()
 
