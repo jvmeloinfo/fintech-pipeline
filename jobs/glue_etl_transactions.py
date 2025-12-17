@@ -1,1 +1,0 @@
-print("Fintech Glue ETL pipeline started")

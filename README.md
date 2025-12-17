@@ -1,8 +1,20 @@
 # Fintech Data Pipeline
 
+## Objetivo
 Pipeline de dados para ingestão, processamento e análise de transações financeiras.
 
-## Arquitetura
-S3 (Raw) → AWS Glue (PySpark) → S3 (Parquet) → Glue Catalog → Athena / BI
+## Arquitetura Proposta (AWS)
+- S3 (raw)
+- AWS Glue (ETL)
+- S3 (processed / curated)
+- Athena (consulta)
+- BI (QuickSight / Power BI)
 
-CI check via PR
+## Execução Local
+python jobs/glue_etl_transactions.py
+
+## Adaptação para AWS
+- Glue Job PySpark
+- IAM Role
+- Cross-account S3 access
+- Athena external table
