@@ -4,3 +4,4 @@ Pipeline de dados para ingestão, processamento e análise de transações finan
 
 ## Arquitetura
 S3 (Raw) → AWS Glue (PySpark) → S3 (Parquet) → Glue Catalog → Athena / BI
+
